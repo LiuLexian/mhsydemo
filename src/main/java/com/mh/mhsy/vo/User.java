@@ -1,8 +1,5 @@
 package com.mh.mhsy.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -20,13 +17,13 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("t_user")
+//@TableName("t_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * 主键id
      */
-    @TableId(type = IdType.AUTO)
+//    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键")
     private Integer id;
     /**

@@ -1,10 +1,11 @@
 package com.mh.mhsy.mapper;
 
 import com.mh.mhsy.vo.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public interface UserMapper {
     /**
      *  添加用户
@@ -33,4 +34,6 @@ public interface UserMapper {
      * @return
      */
     Integer checkUser(Map<String,Object> mapin);
+
+    User findUser(Map<String,Object> mapin);
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mh.mhsy.mapper.UserMapper">
+    <!--添加用户-->
+    <insert id="registerUser" parameterType="com.mh.mhsy.vo.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user(userName`,password`,qqAccount,validStatus,createTIme,updateTime)
+            VALUES (#{userName},#{password},#{qqAccount},#{validStatus},#{createTIme},#{updateTime});
+    </insert>
+    <!--根据条件修改用户信息-->
+    <update id="updateUser" parameterType="java.util.Map">
+        UPDATE t_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                userName = #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                `password` = #{password},
+            </if>
+            <if test="qqAccount != null and qqAccount != ''">
+                qqAccount = #{qqAccount},
+            </if>
+            <if test="validStatus != null">
+                validStatus = #{validStatus},
+            </if>
+            updateTime = {updateTime},
+        </trim>
+        WHERE id = {id}
+    </update>
+    <!--查询用户集合-->
+    <select id="findUserList" parameterType="java.util.Map" resultType="com.mh.mhsy.vo.User">
+        SELECT * FROM t_user
+        <where>
+            <if test="userName != null and userName != ''"> userName = #{userName} </if>
+            <if test="password != null and password != ''"> `password` = #{password} </if>
+            <if test="qqAccount != null and qqAccount != ''"> qqAccount = #{qqAccount} </if>
+            <if test="validStatus != null "> validStatus = #{validStatus} </if>
+        </where>
+    </select>
+    <!--校验用户是否存在-->
+    <select id="checkUser" parameterType="java.util.Map" resultType="Integer">
+        SELECT COUNT(0) FROM t_user
+        WHERE userName = #{userName}
+        <if test="qqAccount != null and qqAccount != ''"> OR qqAccount = #{qqAccount} </if>
+    </select>
+
+</mapper>

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -69,10 +70,37 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean checkUser(String userName,String qqAccount) {
+    public String findUser(String userName, String password) {
+        ReturnDTO<Object> returnDTO = new ReturnDTO<Object>(999,"查询异常",null);
+        try{
+            if(StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
+                throw new Exception("用户查询异常，账号：userName="+userName);
+            }
+            Map map = new HashMap();
+            map.put("userName",userName);
+            map.put("password",password);
+            map.put("validStatus",1);
+            List<User> users = userMapper.findUserList(map);
+            if(!CollectionUtils.isEmpty(users)){
+                returnDTO.setCode(1000);
+                returnDTO.setMsg("查询成功");
+                returnDTO.setData(users.get(0));
+            }else{
+                returnDTO.setCode(1000);
+                returnDTO.setMsg("查询成功，该用户不存在");
+            }
+        }catch (Exception e){
+            log.error("查询用户信息异常",e);
+            e.printStackTrace();
+        }
+        return JsonUtil.toJson(returnDTO);
+    }
+
+    private boolean checkUser(String userName,String qqAccount) throws Exception {
         boolean flag = false;
         if(StringUtils.isBlank(userName)){
             log.info("参数异常，用户名为空：userName="+userName);
+            throw new Exception("参数异常，用户名为空：userName="+userName);
         }else{
             Map<String,Object> mapin = new HashMap<>(2);
             mapin.put("userName",userName);

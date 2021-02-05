@@ -28,11 +28,12 @@ public interface IUserService {
      */
     List<User> findUserList(UserDTO userDTO);
 
+
     /**
-     * 校验用户是否存在  根据userName qqAccount
-     * @param userName
-     * @param qqAccount
+     *  查询用户
+     * @param userName  用户名
+     * @param password  密码
      * @return
      */
-    boolean checkUser(String userName,String qqAccount);
+    String findUser(String userName,String password);
 }

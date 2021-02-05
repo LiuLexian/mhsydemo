@@ -26,15 +26,14 @@
         </trim>
         WHERE id = {id}
     </update>
-    <!--查询用户-->
+    <!--查询用户集合-->
     <select id="findUserList" parameterType="java.util.Map" resultType="com.mh.mhsy.vo.User">
         SELECT * FROM t_user
-        <where>
-            <if test="userName != null and userName != ''"> userName = #{userName} </if>
-            <if test="password != null and password != ''"> `password` = #{password} </if>
-            <if test="qqAccount != null and qqAccount != ''"> qqAccount = #{qqAccount} </if>
-            <if test="validStatus != null "> validStatus = #{validStatus} </if>
-        </where>
+        WHERE 1=1
+            <if test="userName != null and userName != ''"> AND userName = #{userName} </if>
+            <if test="password != null and password != ''"> AND `password` = #{password} </if>
+            <if test="qqAccount != null and qqAccount != ''"> AND qqAccount = #{qqAccount} </if>
+            <if test="validStatus != null "> AND validStatus = #{validStatus} </if>
     </select>
     <!--校验用户是否存在-->
     <select id="checkUser" parameterType="java.util.Map" resultType="Integer">
@@ -42,7 +41,5 @@
         WHERE userName = #{userName}
         <if test="qqAccount != null and qqAccount != ''"> OR qqAccount = #{qqAccount} </if>
     </select>
-
-
 
 </mapper>
