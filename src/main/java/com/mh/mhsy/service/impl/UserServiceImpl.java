@@ -3,6 +3,7 @@ package com.mh.mhsy.service.impl;
 import com.mh.mhsy.dto.ReturnDTO;
 import com.mh.mhsy.dto.user.UserDTO;
 import com.mh.mhsy.mapper.UserMapper;
+import com.mh.mhsy.service.IEmailService;
 import com.mh.mhsy.service.IUserService;
 import com.mh.mhsy.util.JsonUtil;
 import com.mh.mhsy.vo.User;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService {
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private IEmailService emailService;
+
     @Override
     public String register(UserDTO userDTO) {
         ReturnDTO<Object> returnDTO = new ReturnDTO<Object>(999,"注册失败",null);
@@ -71,6 +75,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String findUser(String userName, String password) {
+        emailService.sendSimpleMail("1142080948@qq.com","主题：你好普通邮件","内容：第一封邮件");
         ReturnDTO<Object> returnDTO = new ReturnDTO<Object>(999,"查询异常",null);
         try{
             if(StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
