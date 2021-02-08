@@ -46,6 +46,16 @@ public class User implements Serializable {
      */
     private Integer validStatus = 1;
     /**
+     *  生效时间
+     */
+    @ApiModelProperty(value = "生效时间")
+    private Date startTime;
+    /**
+     *  失效时间
+     */
+    @ApiModelProperty(value = "失效时间")
+    private Date endTime;
+    /**
      * 创建时间 默认当前时间
      */
     @ApiModelProperty(value = "创建时间")

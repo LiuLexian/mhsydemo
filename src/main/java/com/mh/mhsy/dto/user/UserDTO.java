@@ -37,11 +37,23 @@ public class UserDTO implements Serializable {
     @Length(min = 6,max = 20,message = "长度在6-20以内")
     private String password;
     /**
+     * 新密码
+     */
+    @ApiModelProperty(value = "新密码")
+    @NotBlank(message = "密码不为空")
+    @Length(min = 6,max = 20,message = "长度在6-20以内")
+    private String newPassword;
+    /**
      * QQ 账号
      */
     @ApiModelProperty(value = "QQ账号")
     @NotBlank(message = "QQ账号不为空")
     private String qqAccount;
+    /**
+     * 验证码
+     */
+    @NotBlank(message = "验证码不为空")
+    private String verifyCode;
     /**
      *  账户状态  0 无效  1 有效(默认)
      */

@@ -3,7 +3,7 @@
 <mapper namespace="com.mh.mhsy.mapper.UserMapper">
     <!--添加用户-->
     <insert id="registerUser" parameterType="com.mh.mhsy.vo.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO t_user(userName`,password`,qqAccount,validStatus,createTIme,updateTime)
+        INSERT INTO t_user(userName,`password`,qqAccount,validStatus,createTIme,updateTime)
             VALUES (#{userName},#{password},#{qqAccount},#{validStatus},#{createTIme},#{updateTime});
     </insert>
     <!--根据条件修改用户信息-->
@@ -39,6 +39,7 @@
     <select id="checkUser" parameterType="java.util.Map" resultType="Integer">
         SELECT COUNT(0) FROM t_user
         WHERE userName = #{userName}
+        <if test="password != null and password != ''"> OR `password` = #{password} </if>
         <if test="qqAccount != null and qqAccount != ''"> OR qqAccount = #{qqAccount} </if>
     </select>
 

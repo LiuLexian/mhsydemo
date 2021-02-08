@@ -23,7 +23,11 @@ class MhsyApplicationTests {
      */
     @Test
     public void sendmail() {
-        mailService.sendSimpleMail("1142080948@qq.com","主题：你好普通邮件","内容：第一封邮件");
+        try{
+            mailService.sendSimpleMail("1142080948@qq.com","主题：你好普通邮件","内容：第一封邮件");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     @Test
     void contextLoads() {

@@ -132,6 +132,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
+        <!--apo-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
         <!-- easypoi的支持 -->
         <dependency>
@@ -149,7 +154,11 @@
             <artifactId>easypoi-annotation</artifactId>
             <version>${easypoi.version}</version>
         </dependency>
-
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
         <!-- Swagger API文档 -->
         <dependency>

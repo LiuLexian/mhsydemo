@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mh.mhsy.mapper.SysLogMapper">
+    <!--添加操作日志-->
+    <insert id="addLog" parameterType="com.mh.mhsy.vo.SysLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_log(userId,userName,`type`,operation,operateIp,amount,createTIme)
+            VALUES (#{userId},#{userName},#{type},#{operation},#{operateIp},#{amount},#{createTIme});
+    </insert>
+
+    <!--查询操作日志-->
+    <select id="findLogList" parameterType="java.util.Map" resultType="com.mh.mhsy.vo.SysLog">
+        SELECT * FROM t_log
+        WHERE 1=1
+            <if test="userId != null"> AND userId = #{userId} </if>
+            <if test="userName != null and userName != ''"> AND userName = #{userName} </if>
+            <if test="type != null "> AND `type` = #{type} </if>
+            <if test="operateIp != null and operateIp !='' "> AND operateIp = #{operateIp} </if>
+    </select>
+
+
+</mapper>

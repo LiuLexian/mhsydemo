@@ -9,14 +9,14 @@ public interface IEmailService {
      * @param subject 主题
      * @param content 内容
      */
-    public void sendSimpleMail(String to, String subject, String content);
+    public void sendSimpleMail(String to, String subject, String content) throws Exception ;
     /**
      * 发送HTML邮件
      * @param to 收件人
      * @param subject 主题
      * @param content 内容
      */
-    public void sendHtmlMail(String to, String subject, String content);
+    public void sendHtmlMail(String to, String subject, String content) throws Exception ;
     /**
      * 发送带附件的邮件
      * @param to 收件人
@@ -24,7 +24,7 @@ public interface IEmailService {
      * @param content 内容
      * @param filePath 附件
      */
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath);
+    public void sendAttachmentsMail(String to, String subject, String content, String filePath) throws Exception ;
 
 
 

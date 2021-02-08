@@ -26,8 +26,10 @@ public class EmailServiceImpl implements IEmailService {
     @Value("${spring.mail.from}")
     private String from;
 
+
+
     @Override
-    public void sendSimpleMail(String to, String subject, String content) {
+    public void sendSimpleMail(String to, String subject, String content) throws Exception {
         //创建SimpleMailMessage对象
         SimpleMailMessage message = new SimpleMailMessage();
         //邮件发送人
@@ -40,6 +42,7 @@ public class EmailServiceImpl implements IEmailService {
         message.setText(content);
         //发送邮件
         mailSender.send(message);
+
     }
 
     /**
@@ -49,27 +52,21 @@ public class EmailServiceImpl implements IEmailService {
      * @param content 内容
      */
     @Override
-    public void sendHtmlMail(String to, String subject, String content) {
+    public void sendHtmlMail(String to, String subject, String content) throws Exception {
         //获取MimeMessage对象
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper;
-        try {
-            messageHelper = new MimeMessageHelper(message, true);
-            //邮件发送人
-            messageHelper.setFrom(from);
-            //邮件接收人
-            messageHelper.setTo(subject);
-            //邮件主题
-            message.setSubject(subject);
-            //邮件内容，html格式
-            messageHelper.setText(content, true);
-            //发送
-            mailSender.send(message);
-            //日志信息
-            log.info("邮件已经发送。");
-        } catch (Exception e) {
-            log.error("发送邮件时发生异常！", e);
-        }
+        messageHelper = new MimeMessageHelper(message, true);
+        //邮件发送人
+        messageHelper.setFrom(from);
+        //邮件接收人
+        messageHelper.setTo(subject);
+        //邮件主题
+        message.setSubject(subject);
+        //邮件内容，html格式
+        messageHelper.setText(content, true);
+        //发送
+        mailSender.send(message);
     }
 
     /**
@@ -80,26 +77,18 @@ public class EmailServiceImpl implements IEmailService {
      * @param filePath 附件
      */
     @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath) {
+    public void sendAttachmentsMail(String to, String subject, String content, String filePath) throws Exception  {
         MimeMessage message = mailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(from);
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(content, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(content, true);
 
-            FileSystemResource file = new FileSystemResource(new File(filePath));
-            String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
-            helper.addAttachment(fileName, file);
-            mailSender.send(message);
-            //日志信息
-            log.info("邮件已经发送。");
-        } catch (Exception e) {
-            log.error("发送邮件时发生异常！", e);
-        }
-
-
+        FileSystemResource file = new FileSystemResource(new File(filePath));
+        String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
+        helper.addAttachment(fileName, file);
+        mailSender.send(message);
     }
 
     @Override

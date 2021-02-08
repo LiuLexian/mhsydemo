@@ -19,7 +19,7 @@ public interface IUserService {
      * @param userDTO
      * @return
      */
-    Integer updateUser(UserDTO userDTO);
+    String updateUser(UserDTO userDTO);
 
     /**
      *  根据条件查询用户集合
@@ -36,4 +36,22 @@ public interface IUserService {
      * @return
      */
     String findUser(String userName,String password);
+
+    /**
+     * 发送验证码
+     * @param qqAccount
+     * @param qqAccount
+     * @return
+     */
+    String sendVerifyCode(String qqAccount);
+
+    /**
+     *  充值接口
+     * @param userId        用户id
+     * @param userName      账户
+     * @param amount        金额
+     * @param key           key
+     * @return
+     */
+    String recharge(Integer userId, String userName, Integer amount,String key);
 }
